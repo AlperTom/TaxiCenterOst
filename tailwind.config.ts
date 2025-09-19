@@ -68,10 +68,12 @@ export default {
         "gradient-eco": "var(--gradient-eco)", 
         "gradient-taxi": "var(--gradient-taxi)",
         "gradient-subtle": "var(--gradient-subtle)",
+        "gradient-hero": "var(--gradient-hero)",
       },
       boxShadow: {
         glow: "var(--shadow-glow)",
         elegant: "var(--shadow-elegant)",
+        taxi: "var(--shadow-taxi)",
       },
       borderRadius: {
         lg: "var(--radius)",
