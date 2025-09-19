@@ -1,39 +1,120 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Phone, Menu } from "lucide-react";
+import { Phone, Menu, X } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 
 const Header = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const navLinks = [
+    { href: "#home", label: "Home" },
+    { href: "#services", label: "Services" },
+    { href: "#booking", label: "Booking" },
+    { href: "#about", label: "About" },
+    { href: "#contact", label: "Contact" },
+  ];
+
+  const scrollToSection = (href: string) => {
+    const element = document.querySelector(href);
+    element?.scrollIntoView({ behavior: 'smooth' });
+    setIsOpen(false);
+  };
+
   return (
-    <header className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-lg border-b border-border">
-      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+    <header className="fixed top-0 w-full z-50 bg-background/95 backdrop-blur-lg border-b border-border">
+      <div className="container mx-auto px-4 py-3 sm:py-4 flex justify-between items-center">
         <div className="flex items-center space-x-2">
-          <div className="w-10 h-10 bg-gradient-taxi rounded-lg flex items-center justify-center">
-            <span className="text-taxi-yellow-foreground font-bold text-lg">T</span>
+          <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-taxi rounded-lg flex items-center justify-center">
+            <span className="text-taxi-yellow-foreground font-bold text-sm sm:text-lg">T</span>
           </div>
           <div>
-            <h1 className="text-xl font-bold text-foreground">TaxiOstbahnhof</h1>
-            <p className="text-xs text-muted-foreground">Eco-Friendly Taxi Service</p>
+            <h1 className="text-lg sm:text-xl font-bold text-foreground">TaxiOstbahnhof</h1>
+            <p className="text-xs text-muted-foreground hidden sm:block">Eco-Friendly Taxi Service</p>
           </div>
         </div>
 
-        <nav className="hidden md:flex items-center space-x-8">
-          <a href="#home" className="text-foreground hover:text-primary transition-colors">Home</a>
-          <a href="#services" className="text-foreground hover:text-primary transition-colors">Services</a>
-          <a href="#booking" className="text-foreground hover:text-primary transition-colors">Booking</a>
-          <a href="#about" className="text-foreground hover:text-primary transition-colors">About</a>
-          <a href="#contact" className="text-foreground hover:text-primary transition-colors">Contact</a>
+        {/* Desktop Navigation */}
+        <nav className="hidden lg:flex items-center space-x-8">
+          {navLinks.map((link) => (
+            <button
+              key={link.href}
+              onClick={() => scrollToSection(link.href)}
+              className="text-foreground hover:text-primary transition-colors"
+            >
+              {link.label}
+            </button>
+          ))}
         </nav>
 
-        <div className="flex items-center space-x-4">
-          <Button variant="outline" size="sm" className="hidden md:flex">
-            <Phone className="w-4 h-4 mr-2" />
-            Call Now
+        <div className="flex items-center space-x-2 sm:space-x-4">
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="hidden sm:flex text-xs sm:text-sm px-2 sm:px-4"
+          >
+            <Phone className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+            <span className="hidden md:inline">Call Now</span>
+            <span className="md:hidden">Call</span>
           </Button>
-          <Button className="bg-gradient-primary text-primary-foreground shadow-glow">
-            Book Ride
+          
+          <Button 
+            onClick={() => scrollToSection('#booking')}
+            size="sm"
+            className="bg-gradient-primary text-primary-foreground shadow-glow text-xs sm:text-sm px-2 sm:px-4"
+          >
+            <span className="hidden sm:inline">Book Ride</span>
+            <span className="sm:hidden">Book</span>
           </Button>
-          <Button variant="ghost" size="icon" className="md:hidden">
-            <Menu className="w-5 h-5" />
-          </Button>
+
+          {/* Mobile Menu */}
+          <Sheet open={isOpen} onOpenChange={setIsOpen}>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="sm" className="lg:hidden p-1 sm:p-2">
+                <Menu className="w-5 h-5" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-64 sm:w-80">
+              <div className="flex flex-col h-full">
+                <div className="flex items-center justify-between mb-8">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-8 h-8 bg-gradient-taxi rounded-lg flex items-center justify-center">
+                      <span className="text-taxi-yellow-foreground font-bold">T</span>
+                    </div>
+                    <span className="text-lg font-bold">TaxiOstbahnhof</span>
+                  </div>
+                </div>
+                
+                <nav className="flex flex-col space-y-4 flex-1">
+                  {navLinks.map((link) => (
+                    <button
+                      key={link.href}
+                      onClick={() => scrollToSection(link.href)}
+                      className="text-left text-lg font-medium text-foreground hover:text-primary transition-colors py-2"
+                    >
+                      {link.label}
+                    </button>
+                  ))}
+                </nav>
+
+                <div className="space-y-4 pt-6 border-t border-border">
+                  <Button 
+                    variant="outline" 
+                    className="w-full" 
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <Phone className="w-4 h-4 mr-2" />
+                    +49 (30) 123 4567
+                  </Button>
+                  <Button 
+                    onClick={() => scrollToSection('#booking')}
+                    className="w-full bg-gradient-primary text-primary-foreground shadow-glow"
+                  >
+                    Jetzt Buchen
+                  </Button>
+                </div>
+              </div>
+            </SheetContent>
+          </Sheet>
         </div>
       </div>
     </header>
