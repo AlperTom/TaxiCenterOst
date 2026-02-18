@@ -1,55 +1,29 @@
 
+# Logo vergroessern und Farben an Logo anpassen
 
-# Hero Redesign mit Video-Hintergrund
+## Was wird geaendert
 
-## Probleme im aktuellen Design
-- Das Video ist nicht sichtbar (`.mov` Format hat schlechte Browser-Kompatibilitaet)
-- Die "Modern Fleet" Karte auf der rechten Seite wirkt deplatziert und verdeckt das Video
-- Das 2-Spalten-Layout lenkt vom cinematic Video-Hintergrund ab
+### 1. Logo groesser machen (`src/components/Header.tsx`)
+- Logo-Hoehe von `h-8 sm:h-10` auf `h-12 sm:h-14` erhoehen, damit es die Navigation ausfuellt
+- Im Mobile-Menue das Logo ebenfalls groesser machen (`h-10`)
+- Navigation-Padding leicht anpassen (`py-2`) damit das Logo gut sitzt
 
-## Aenderungen
+### 2. Farbschema an Logo anpassen (`src/index.css`)
+Das Logo hat ein gruenes/lime Farbschema (gruener Baum + gelb-gruene Akzente). Die aktuelle Primaerfarbe ist Cyan-Blau und passt nicht zum Logo.
 
-### 1. Hero-Komponente komplett ueberarbeiten (`src/components/Hero.tsx`)
+Aenderungen:
+- **Primary**: Von Cyan-Blau (`195 100% 50%`) zu einem frischen Gruen (`145 80% 42%`) -- passend zum gruenen Baum im Logo
+- **Primary Glow**: Entsprechend anpassen (`145 80% 55%`)
+- **Gradient-Primary**: Gruen-Gradient statt Blau-Gradient
+- **Shadow-Glow**: Gruener Glow-Effekt
+- **Ring**: Gruene Ring-Farbe
 
-**Layout-Aenderung:**
-- Das 2-Spalten Grid wird entfernt
-- Die "Modern Fleet" Karte und die schwebenden Elemente werden entfernt
-- Der gesamte Content wird zentriert (vertikal + horizontal)
-- Groessere Typografie fuer einen cinematic Look
+Die Akzentfarbe (Gold/Gelb) bleibt bestehen, da sie gut zum Logo passt.
 
-**Video-Fix:**
-- `useRef` + `useEffect` fuer zuverlaessiges muted Autoplay (manueller `play()`-Aufruf als Fallback)
-- Das Video bleibt `muted` (kein Sound) -- das ist auch zwingend noetig fuer Browser-Autoplay
-- `preload="auto"` wird hinzugefuegt
+### 3. Hero-Text aktualisieren (`src/components/Hero.tsx`)
+- "Taxi Service" Highlight-Text wird automatisch gruen statt blau durch die CSS-Aenderung
+- Der "Eco-Friendly Transport" Badge passt farblich besser zum gruenen Thema
 
-**Neues Layout:**
-```text
-+----------------------------------------------+
-|  <video> fullscreen background (muted, loop)  |
-+----------------------------------------------+
-|  Dunkler Gradient-Overlay (staerker)          |
-+----------------------------------------------+
-|                                               |
-|        [Eco-Friendly Transport Badge]         |
-|                                               |
-|         Umweltfreundliche                     |
-|           Taxi Service                        |
-|                                               |
-|     Schnell, zuverlaessig und...              |
-|                                               |
-|     [Jetzt Buchen]  [Mehr Erfahren]           |
-|                                               |
-|   24/7 Service  |  4.9 Rating  |  100% Eco   |
-+----------------------------------------------+
-```
-
-### 2. Gradient-Overlay verstaerken (`src/index.css`)
-- `--gradient-hero` wird zu einem mehrstufigen Overlay mit staerkerem Dunkeleffekt von unten
-- Das sorgt fuer bessere Lesbarkeit des weissen Textes ueber dem Video
-
-### Technische Details
-- Das `muted`-Attribut ist bereits vorhanden und bleibt bestehen -- es wird zusaetzlich per `videoRef.muted = true` im Code gesetzt
-- `playsInline` bleibt fuer iOS-Kompatibilitaet
-- `useEffect` ruft `video.play()` manuell auf, falls der Browser Autoplay blockiert
-- Das `.mov`-Format bleibt als einzige Quelle (da es die vorhandene Datei ist), aber der manuelle Play-Aufruf verbessert die Zuverlaessigkeit
-
+### Betroffene Dateien
+- `src/components/Header.tsx` -- Logo-Groesse
+- `src/index.css` -- Farbvariablen (primary, gradients, shadows)
