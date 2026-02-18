@@ -12,15 +12,21 @@ const Hero = () => {
     <section 
       id="home" 
       className="relative min-h-screen flex items-center pt-16 sm:pt-20 overflow-hidden"
-      style={{
-        backgroundImage: `url(${heroBackground})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundAttachment: window.innerWidth > 768 ? 'fixed' : 'scroll'
-      }}
     >
+      {/* Background video */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        poster={heroBackground}
+        className="absolute inset-0 w-full h-full object-cover z-0"
+      >
+        <source src="/videos/hero-background.mov" type="video/quicktime" />
+      </video>
+      
       {/* Background overlay */}
-      <div className="absolute inset-0 bg-gradient-hero"></div>
+      <div className="absolute inset-0 bg-gradient-hero z-[1]"></div>
       
       <div className="relative z-10 container mx-auto px-4 grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
         <div className="space-y-6 sm:space-y-8 text-center lg:text-left">
