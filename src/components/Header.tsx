@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Phone, Menu, X } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
+import { Phone, Menu } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import logo from "@/assets/umwelt-taxi-logo.png";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,14 +24,8 @@ const Header = () => {
   return (
     <header className="fixed top-0 w-full z-50 bg-background/95 backdrop-blur-lg border-b border-border">
       <div className="container mx-auto px-4 py-3 sm:py-4 flex justify-between items-center">
-        <div className="flex items-center space-x-2">
-          <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-taxi rounded-lg flex items-center justify-center">
-            <span className="text-taxi-yellow-foreground font-bold text-sm sm:text-lg">T</span>
-          </div>
-          <div>
-            <h1 className="text-lg sm:text-xl font-bold text-foreground">TaxiOstbahnhof</h1>
-            <p className="text-xs text-muted-foreground hidden sm:block">Eco-Friendly Taxi Service</p>
-          </div>
+        <div className="flex items-center space-x-3 cursor-pointer" onClick={() => scrollToSection('#home')}>
+          <img src={logo} alt="Umwelt Taxi München" className="h-8 sm:h-10 w-auto" />
         </div>
 
         {/* Desktop Navigation */}
@@ -62,8 +57,8 @@ const Header = () => {
             size="sm"
             className="bg-gradient-primary text-primary-foreground shadow-glow text-xs sm:text-sm px-2 sm:px-4"
           >
-            <span className="hidden sm:inline">Book Ride</span>
-            <span className="sm:hidden">Book</span>
+            <span className="hidden sm:inline">Jetzt Buchen</span>
+            <span className="sm:hidden">Buchen</span>
           </Button>
 
           {/* Mobile Menu */}
@@ -75,13 +70,8 @@ const Header = () => {
             </SheetTrigger>
             <SheetContent side="right" className="w-64 sm:w-80">
               <div className="flex flex-col h-full">
-                <div className="flex items-center justify-between mb-8">
-                  <div className="flex items-center space-x-2">
-                    <div className="w-8 h-8 bg-gradient-taxi rounded-lg flex items-center justify-center">
-                      <span className="text-taxi-yellow-foreground font-bold">T</span>
-                    </div>
-                    <span className="text-lg font-bold">TaxiOstbahnhof</span>
-                  </div>
+                <div className="flex items-center mb-8">
+                  <img src={logo} alt="Umwelt Taxi München" className="h-8 w-auto" />
                 </div>
                 
                 <nav className="flex flex-col space-y-4 flex-1">
@@ -103,7 +93,7 @@ const Header = () => {
                     onClick={() => setIsOpen(false)}
                   >
                     <Phone className="w-4 h-4 mr-2" />
-                    +49 (30) 123 4567
+                    +49 (89) 123 4567
                   </Button>
                   <Button 
                     onClick={() => scrollToSection('#booking')}
