@@ -23,9 +23,9 @@ const Header = () => {
 
   return (
     <header className="fixed top-0 w-full z-50 bg-background/95 backdrop-blur-lg border-b border-border">
-      <div className="container mx-auto px-4 py-3 sm:py-4 flex justify-between items-center">
+      <div className="container mx-auto px-4 py-2 flex justify-between items-center">
         <div className="flex items-center space-x-3 cursor-pointer" onClick={() => scrollToSection('#home')}>
-          <img src={logo} alt="Umwelt Taxi München" className="h-8 sm:h-10 w-auto" />
+          <img src={logo} alt="Umwelt Taxi München" className="h-12 sm:h-14 w-auto" />
         </div>
 
         {/* Desktop Navigation */}
@@ -71,7 +71,7 @@ const Header = () => {
             <SheetContent side="right" className="w-64 sm:w-80">
               <div className="flex flex-col h-full">
                 <div className="flex items-center mb-8">
-                  <img src={logo} alt="Umwelt Taxi München" className="h-8 w-auto" />
+                  <img src={logo} alt="Umwelt Taxi München" className="h-10 w-auto" />
                 </div>
                 
                 <nav className="flex flex-col space-y-4 flex-1">
