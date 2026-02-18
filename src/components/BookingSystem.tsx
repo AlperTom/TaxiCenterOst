@@ -21,24 +21,24 @@ const BookingSystem = () => {
     {
       id: "eco",
       name: "Eco Taxi",
-      description: "Hybrid vehicle • Up to 4 passengers",
-      price: "€0.80/km",
+      description: "Hybridfahrzeug • Bis zu 4 Personen",
+      price: "€0,80/km",
       icon: Leaf,
       gradient: "bg-gradient-eco",
     },
     {
       id: "electric",
       name: "Electric Taxi", 
-      description: "100% Electric • Up to 4 passengers",
-      price: "€0.90/km",
+      description: "100% Elektrisch • Bis zu 4 Personen",
+      price: "€0,90/km",
       icon: Zap,
       gradient: "bg-gradient-primary",
     },
     {
       id: "premium",
       name: "Premium Taxi",
-      description: "Luxury hybrid • Up to 6 passengers",
-      price: "€1.20/km",
+      description: "Luxus-Hybrid • Bis zu 6 Personen",
+      price: "€1,20/km",
       icon: Car,
       gradient: "bg-gradient-taxi",
     },
@@ -48,16 +48,16 @@ const BookingSystem = () => {
     e.preventDefault();
     if (!booking.from || !booking.to || !booking.date || !booking.time || !booking.vehicleType) {
       toast({
-        title: "Missing Information",
-        description: "Please fill in all required fields.",
+        title: "Fehlende Angaben",
+        description: "Bitte füllen Sie alle Pflichtfelder aus.",
         variant: "destructive",
       });
       return;
     }
     
     toast({
-      title: "Booking Submitted!",
-      description: "We'll contact you shortly to confirm your ride.",
+      title: "Buchung eingereicht!",
+      description: "Wir melden uns in Kürze zur Bestätigung Ihrer Fahrt.",
     });
   };
 
@@ -78,10 +78,10 @@ const BookingSystem = () => {
             <CardHeader className="pb-4 sm:pb-6">
               <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
                 <Car className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
-                Taxi Booking System
+                Taxi Buchungssystem
               </CardTitle>
               <CardDescription className="text-sm sm:text-base">
-                Fill in your details for an instant quote and booking
+                Geben Sie Ihre Daten ein für ein sofortiges Angebot und Buchung
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6 p-4 sm:p-6">
