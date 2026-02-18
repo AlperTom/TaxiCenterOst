@@ -1,29 +1,33 @@
 
-# Logo vergroessern und Farben an Logo anpassen
 
-## Was wird geaendert
+# Video von .mov zu .mp4 konvertieren und Code anpassen
 
-### 1. Logo groesser machen (`src/components/Header.tsx`)
-- Logo-Hoehe von `h-8 sm:h-10` auf `h-12 sm:h-14` erhoehen, damit es die Navigation ausfuellt
-- Im Mobile-Menue das Logo ebenfalls groesser machen (`h-10`)
-- Navigation-Padding leicht anpassen (`py-2`) damit das Logo gut sitzt
+## Problem
+Das Hero-Video ist im `.mov`-Format (QuickTime). Dieses Format wird nur von Safari unterstuetzt. Chrome, Firefox und Edge koennen `.mov` nicht abspielen, weshalb das Video nicht sichtbar ist.
 
-### 2. Farbschema an Logo anpassen (`src/index.css`)
-Das Logo hat ein gruenes/lime Farbschema (gruener Baum + gelb-gruene Akzente). Die aktuelle Primaerfarbe ist Cyan-Blau und passt nicht zum Logo.
+## Loesung
 
-Aenderungen:
-- **Primary**: Von Cyan-Blau (`195 100% 50%`) zu einem frischen Gruen (`145 80% 42%`) -- passend zum gruenen Baum im Logo
-- **Primary Glow**: Entsprechend anpassen (`145 80% 55%`)
-- **Gradient-Primary**: Gruen-Gradient statt Blau-Gradient
-- **Shadow-Glow**: Gruener Glow-Effekt
-- **Ring**: Gruene Ring-Farbe
+### Schritt 1: Video konvertieren (durch den Nutzer)
+- Die Datei `public/videos/hero-background.mov` muss zu `.mp4` (H.264 Codec) konvertiert werden
+- Tools: [cloudconvert.com](https://cloudconvert.com/mov-to-mp4), HandBrake, oder FFmpeg
+- Die konvertierte Datei als `hero-background.mp4` hier hochladen
 
-Die Akzentfarbe (Gold/Gelb) bleibt bestehen, da sie gut zum Logo passt.
+### Schritt 2: Code anpassen (`src/components/Hero.tsx`)
+Nach dem Upload der `.mp4`-Datei:
+- Die `<source>`-Zeile aendern von:
+  ```html
+  <source src="/videos/hero-background.mov" type="video/quicktime" />
+  ```
+  zu:
+  ```html
+  <source src="/videos/hero-background.mp4" type="video/mp4" />
+  ```
+- Optional: Beide Formate als Fallback anbieten (mp4 zuerst, mov als Backup fuer Safari)
 
-### 3. Hero-Text aktualisieren (`src/components/Hero.tsx`)
-- "Taxi Service" Highlight-Text wird automatisch gruen statt blau durch die CSS-Aenderung
-- Der "Eco-Friendly Transport" Badge passt farblich besser zum gruenen Thema
+### Warum .mp4?
+- `.mp4` mit H.264 wird von **allen** modernen Browsern unterstuetzt (Chrome, Firefox, Safari, Edge)
+- `.mov` ist ein Apple-Format und funktioniert nur in Safari
 
-### Betroffene Dateien
-- `src/components/Header.tsx` -- Logo-Groesse
-- `src/index.css` -- Farbvariablen (primary, gradients, shadows)
+### Naechster Schritt
+Bitte lade die konvertierte `.mp4`-Datei hoch, dann passe ich den Code sofort an.
+
