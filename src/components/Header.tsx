@@ -8,11 +8,11 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navLinks = [
-    { href: "#home", label: "Home" },
-    { href: "#services", label: "Services" },
-    { href: "#booking", label: "Booking" },
-    { href: "#about", label: "About" },
-    { href: "#contact", label: "Contact" },
+    { href: "#home", label: "Startseite" },
+    { href: "#services", label: "Leistungen" },
+    { href: "#booking", label: "Buchung" },
+    { href: "#about", label: "Über uns" },
+    { href: "#contact", label: "Kontakt" },
   ];
 
   const scrollToSection = (href: string) => {
@@ -48,8 +48,8 @@ const Header = () => {
             className="hidden sm:flex text-xs sm:text-sm px-2 sm:px-4"
           >
             <Phone className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
-            <span className="hidden md:inline">Call Now</span>
-            <span className="md:hidden">Call</span>
+            <span className="hidden md:inline">Jetzt Anrufen</span>
+            <span className="md:hidden">Anrufen</span>
           </Button>
           
           <Button 

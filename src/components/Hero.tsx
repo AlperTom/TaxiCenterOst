@@ -47,7 +47,7 @@ const Hero = () => {
       <div className="relative z-10 container mx-auto px-4 text-center space-y-8">
         <div className="inline-flex items-center space-x-2 text-accent bg-accent/10 border border-accent/20 rounded-full px-4 py-1.5">
           <Leaf className="w-4 h-4" />
-          <span className="text-xs sm:text-sm font-medium">Eco-Friendly Transport</span>
+          <span className="text-xs sm:text-sm font-medium">Umweltfreundlicher Transport</span>
         </div>
 
         <h1 className="text-5xl sm:text-6xl lg:text-8xl font-bold leading-tight">
@@ -58,7 +58,7 @@ const Hero = () => {
         </h1>
 
         <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
-          Schnell, zuverlässig und umweltbewusst durch Berlin.
+          Schnell, zuverlässig und umweltbewusst durch München.
           Unsere modernen Fahrzeuge bringen Sie sicher ans Ziel.
         </p>
 
@@ -76,7 +76,7 @@ const Hero = () => {
             size="lg"
             className="w-full sm:w-auto border-primary/50 text-foreground hover:bg-primary/10"
           >
-            Mehr Erfahren
+            Mehr erfahren
           </Button>
         </div>
 
@@ -87,11 +87,11 @@ const Hero = () => {
           </div>
           <div className="flex items-center space-x-2">
             <Star className="w-5 h-5 text-accent" />
-            <span className="text-sm text-muted-foreground">4.9★ Rating</span>
+            <span className="text-sm text-muted-foreground">4.9★ Bewertung</span>
           </div>
           <div className="flex items-center space-x-2">
             <Leaf className="w-5 h-5 text-primary" />
-            <span className="text-sm text-muted-foreground">100% Eco</span>
+            <span className="text-sm text-muted-foreground">100% Öko</span>
           </div>
         </div>
       </div>

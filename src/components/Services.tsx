@@ -28,8 +28,8 @@ const Services = () => {
     {
       icon: MapPin,
       title: "Flughafentransfer",
-      description: "Direkter Service zu allen Berliner Flughäfen",
-      features: ["BER Airport", "Festpreise", "Pünktlich"],
+      description: "Direkter Service zum Münchner Flughafen",
+      features: ["MUC Flughafen", "Festpreise", "Pünktlich"],
       gradient: "bg-gradient-primary",
     },
     {
@@ -51,8 +51,8 @@ const Services = () => {
   const stats = [
     { number: "50k+", label: "Zufriedene Kunden", icon: Star },
     { number: "24/7", label: "Service", icon: Clock },
-    { number: "100%", label: "Eco-Friendly", icon: Leaf },
-    { number: "4.9★", label: "Rating", icon: Star },
+    { number: "100%", label: "Umweltfreundlich", icon: Leaf },
+    { number: "4.9★", label: "Bewertung", icon: Star },
   ];
 
   const scrollToBooking = () => {
@@ -72,7 +72,7 @@ const Services = () => {
             Warum TaxiOstbahnhof?
           </h2>
           <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
-            Wir bieten mehr als nur eine Fahrt - wir sorgen für eine nachhaltige und komfortable Mobilität in Berlin.
+            Wir bieten mehr als nur eine Fahrt - wir sorgen für eine nachhaltige und komfortable Mobilität in München.
           </p>
         </div>
 
