@@ -1,38 +1,55 @@
 
-# Video-Hintergrund im Hero-Banner
 
-## Was wird gemacht
-Das hochgeladene Video (`.mov`) wird als fullscreen Hintergrund-Video in die Hero-Sektion eingebaut. Es ersetzt das aktuelle statische Hintergrundbild und laeuft als endlose Schleife (loop) ab.
+# Hero Redesign mit Video-Hintergrund
 
-## Umsetzung
+## Probleme im aktuellen Design
+- Das Video ist nicht sichtbar (`.mov` Format hat schlechte Browser-Kompatibilitaet)
+- Die "Modern Fleet" Karte auf der rechten Seite wirkt deplatziert und verdeckt das Video
+- Das 2-Spalten-Layout lenkt vom cinematic Video-Hintergrund ab
 
-### 1. Video in das Projekt kopieren
-- Die Datei `gemini_generated_video_D36E6E81.mov` wird nach `public/videos/hero-background.mov` kopiert
-- `public/` wird verwendet, da Video-Dateien zu gross fuer Vite-Bundling ueber `src/assets` sind
+## Aenderungen
 
-### 2. Hero-Komponente anpassen (`src/components/Hero.tsx`)
-- Das bisherige `backgroundImage`-Style wird entfernt
-- Ein `<video>`-Element wird als absolut positionierter Hintergrund eingefuegt mit:
-  - `autoPlay`, `loop`, `muted`, `playsInline` (fuer Mobile-Autoplay)
-  - `object-cover` und `absolute inset-0` fuer Fullscreen-Abdeckung
-  - Das statische Bild bleibt als `poster`-Fallback erhalten
-- Der dunkle Gradient-Overlay bleibt bestehen, damit der Text lesbar bleibt
+### 1. Hero-Komponente komplett ueberarbeiten (`src/components/Hero.tsx`)
 
-### Technische Details
+**Layout-Aenderung:**
+- Das 2-Spalten Grid wird entfernt
+- Die "Modern Fleet" Karte und die schwebenden Elemente werden entfernt
+- Der gesamte Content wird zentriert (vertikal + horizontal)
+- Groessere Typografie fuer einen cinematic Look
 
+**Video-Fix:**
+- `useRef` + `useEffect` fuer zuverlaessiges muted Autoplay (manueller `play()`-Aufruf als Fallback)
+- Das Video bleibt `muted` (kein Sound) -- das ist auch zwingend noetig fuer Browser-Autoplay
+- `preload="auto"` wird hinzugefuegt
+
+**Neues Layout:**
 ```text
-Aufbau der Hero-Sektion:
-+----------------------------------+
-|  <video> (absolute, z-0)         |
-|    autoPlay, loop, muted         |
-|    object-fit: cover             |
-+----------------------------------+
-|  Gradient Overlay (absolute, z-1)|
-+----------------------------------+
-|  Content (relative, z-10)        |
-|    - Headline, Buttons, Stats    |
-+----------------------------------+
++----------------------------------------------+
+|  <video> fullscreen background (muted, loop)  |
++----------------------------------------------+
+|  Dunkler Gradient-Overlay (staerker)          |
++----------------------------------------------+
+|                                               |
+|        [Eco-Friendly Transport Badge]         |
+|                                               |
+|         Umweltfreundliche                     |
+|           Taxi Service                        |
+|                                               |
+|     Schnell, zuverlaessig und...              |
+|                                               |
+|     [Jetzt Buchen]  [Mehr Erfahren]           |
+|                                               |
+|   24/7 Service  |  4.9 Rating  |  100% Eco   |
++----------------------------------------------+
 ```
 
-- Der `import heroBackground` bleibt als Poster/Fallback fuer langsame Verbindungen
-- Video-Attribute `muted` und `playsInline` sind zwingend noetig, damit Autoplay auf mobilen Geraeten funktioniert
+### 2. Gradient-Overlay verstaerken (`src/index.css`)
+- `--gradient-hero` wird zu einem mehrstufigen Overlay mit staerkerem Dunkeleffekt von unten
+- Das sorgt fuer bessere Lesbarkeit des weissen Textes ueber dem Video
+
+### Technische Details
+- Das `muted`-Attribut ist bereits vorhanden und bleibt bestehen -- es wird zusaetzlich per `videoRef.muted = true` im Code gesetzt
+- `playsInline` bleibt fuer iOS-Kompatibilitaet
+- `useEffect` ruft `video.play()` manuell auf, falls der Browser Autoplay blockiert
+- Das `.mov`-Format bleibt als einzige Quelle (da es die vorhandene Datei ist), aber der manuelle Play-Aufruf verbessert die Zuverlaessigkeit
+
