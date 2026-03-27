@@ -1,5 +1,5 @@
 # Supabase Configuration
-project_id = "taxi-center-ost"
+project_id = "vvwtkkatgegcezfubhxx"
 
 [api]
 enabled = true
