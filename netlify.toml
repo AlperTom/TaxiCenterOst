@@ -1,0 +1,20 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[context.production.environment]
+  VITE_SUPABASE_URL = "https://vvwtkkatgegcezfubhxx.supabase.co"
+  VITE_SUPABASE_ANON_KEY = "[set-in-netlify-dashboard]"
+  VITE_DEFAULT_TENANT = "ostbahnhof"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
