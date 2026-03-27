@@ -16,6 +16,7 @@ dist-ssr
 .env
 .env.local
 .env.*.local
+.env.production
 
 # Supabase
 .supabase
@@ -30,3 +31,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Diagnostic files
+diagnose-report.txt
+build.log
