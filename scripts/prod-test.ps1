@@ -1,6 +1,6 @@
 # =============================================================================
 # PRODUKTIONS-TEST SCRIPT
-# Automatisierte Tests für Taxi Center Ostbahnhof
+# Automatisierte Tests fuer Taxi Center Ostbahnhof
 # =============================================================================
 
 $ErrorActionPreference = "Stop"
@@ -10,7 +10,7 @@ $SUPABASE_URL = "https://vvwtkkatgegcezfubhxx.supabase.co"
 $TELEGRAM_TOKEN = "8748467534:AAH8cLTejHIDsKTnlZ0qbhu0fIsSZ12zISM"
 $TEST_RESULTS = @()
 
-function Add-TestResult($Name, $Status, $Message = "") {
+function Add-TestResult($Name, $Status, $Message) {
     $script:TEST_RESULTS += [PSCustomObject]@{
         Test = $Name
         Status = $Status
@@ -26,21 +26,21 @@ function Write-TestHeader($text) {
 }
 
 function Write-Success($text) {
-    Write-Host "  ✓ $text" -ForegroundColor Green
+    Write-Host ("  [OK] " + $text) -ForegroundColor Green
 }
 
 function Write-Failure($text) {
-    Write-Host "  ✗ $text" -ForegroundColor Red
+    Write-Host ("  [FAIL] " + $text) -ForegroundColor Red
 }
 
 # =============================================================================
-# TEST 1: Build & Lint
+# TEST 1: Build und Lint
 # =============================================================================
-Write-TestHeader "TEST 1: Build & Lint"
+Write-TestHeader "TEST 1: Build und Lint"
 
 try {
     npm run build 2>&1 | Out-Null
-    Add-TestResult "Build" "PASS"
+    Add-TestResult "Build" "PASS" ""
     Write-Success "Build erfolgreich"
 } catch {
     Add-TestResult "Build" "FAIL" $_.Exception.Message
@@ -49,7 +49,7 @@ try {
 
 try {
     npm run lint 2>&1 | Out-Null
-    Add-TestResult "Lint" "PASS"
+    Add-TestResult "Lint" "PASS" ""
     Write-Success "Linting OK"
 } catch {
     Add-TestResult "Lint" "FAIL" $_.Exception.Message
@@ -65,15 +65,15 @@ try {
     $webhookInfo = Invoke-RestMethod -Uri "https://api.telegram.org/bot$TELEGRAM_TOKEN/getWebhookInfo" -Method Get
     
     if ($webhookInfo.ok -and $webhookInfo.result.url -like "*vvwtkkatgegcezfubhxx*") {
-        Add-TestResult "Telegram Webhook" "PASS"
-        Write-Success "Webhook konfiguriert: $($webhookInfo.result.url)"
+        Add-TestResult "Telegram Webhook" "PASS" ""
+        Write-Success ("Webhook konfiguriert: " + $webhookInfo.result.url)
     } else {
         Add-TestResult "Telegram Webhook" "FAIL" "Webhook URL nicht korrekt"
         Write-Failure "Webhook nicht korrekt konfiguriert"
     }
 } catch {
     Add-TestResult "Telegram Webhook" "FAIL" $_.Exception.Message
-    Write-Failure "Konnte Webhook nicht prüfen"
+    Write-Failure "Konnte Webhook nicht pruefen"
 }
 
 # =============================================================================
@@ -88,12 +88,11 @@ try {
         -Body '{"update_id":1}' `
         -ErrorAction SilentlyContinue
     
-    # Wir erwarten einen Fehler (kein gültiger Telegram-Update), aber 200 OK
-    Add-TestResult "Edge Function" "PASS"
+    Add-TestResult "Edge Function" "PASS" ""
     Write-Success "Edge Function erreichbar"
 } catch {
     if ($_.Exception.Response.StatusCode -eq 400 -or $_.Exception.Response.StatusCode -eq 200) {
-        Add-TestResult "Edge Function" "PASS"
+        Add-TestResult "Edge Function" "PASS" ""
         Write-Success "Edge Function erreichbar (erwarteter Fehler)"
     } else {
         Add-TestResult "Edge Function" "FAIL" $_.Exception.Message
@@ -102,9 +101,9 @@ try {
 }
 
 # =============================================================================
-# TEST 4: Datenbank-Verbindung (via API)
+# TEST 4: Dateien und Struktur
 # =============================================================================
-Write-TestHeader "TEST 4: Dateien & Struktur"
+Write-TestHeader "TEST 4: Dateien und Struktur"
 
 $requiredFiles = @(
     "src/App.tsx",
@@ -118,15 +117,15 @@ $requiredFiles = @(
 $allFilesExist = $true
 foreach ($file in $requiredFiles) {
     if (Test-Path $file) {
-        Write-Success "$file vorhanden"
+        Write-Success ($file + " vorhanden")
     } else {
-        Write-Failure "$file fehlt"
+        Write-Failure ($file + " fehlt")
         $allFilesExist = $false
     }
 }
 
 if ($allFilesExist) {
-    Add-TestResult "Dateistruktur" "PASS"
+    Add-TestResult "Dateistruktur" "PASS" ""
 } else {
     Add-TestResult "Dateistruktur" "FAIL" "Einige Dateien fehlen"
 }
@@ -136,18 +135,18 @@ if ($allFilesExist) {
 # =============================================================================
 Write-TestHeader "TEST 5: Security Check"
 
-# Prüfe auf Service-Role-Key in src/
+# Pruefe auf Service-Role-Key in src/
 $serviceRoleFound = $false
 Get-ChildItem -Path "src" -Recurse -File | ForEach-Object {
     $content = Get-Content $_.FullName -Raw -ErrorAction SilentlyContinue
     if ($content -like "*SERVICE_ROLE*" -and $_.Name -ne ".env.example") {
-        Write-Failure "SERVICE_ROLE in $($_.FullName) gefunden!"
+        Write-Failure ("SERVICE_ROLE in " + $_.FullName + " gefunden!")
         $serviceRoleFound = $true
     }
 }
 
 if (-not $serviceRoleFound) {
-    Add-TestResult "Security (Kein Service-Role)" "PASS"
+    Add-TestResult "Security (Kein Service-Role)" "PASS" ""
     Write-Success "Kein Service-Role-Key im Source-Code"
 } else {
     Add-TestResult "Security (Kein Service-Role)" "FAIL" "Service-Role-Key gefunden"
@@ -163,23 +162,23 @@ $failed = ($TEST_RESULTS | Where-Object { $_.Status -eq "FAIL" }).Count
 $total = $TEST_RESULTS.Count
 
 Write-Host ""
-Write-Host "Gesamt: $passed/$total bestanden" -ForegroundColor $(if ($failed -eq 0) { "Green" } else { "Yellow" })
+Write-Host ("Gesamt: " + $passed + "/" + $total + " bestanden") -ForegroundColor $(if ($failed -eq 0) { "Green" } else { "Yellow" })
 Write-Host ""
 
 $TEST_RESULTS | ForEach-Object {
     $color = if ($_.Status -eq "PASS") { "Green" } else { "Red" }
-    Write-Host "$($_.Test): $($_.Status)" -ForegroundColor $color
+    Write-Host ($_.Test + ": " + $_.Status) -ForegroundColor $color
     if ($_.Message -and $_.Status -eq "FAIL") {
-        Write-Host "  → $($_.Message)" -ForegroundColor DarkGray
+        Write-Host ("  -> " + $_.Message) -ForegroundColor DarkGray
     }
 }
 
 Write-Host ""
 if ($failed -eq 0) {
-    Write-Host "🎉 Alle Tests bestanden! System ist bereit für Produktion." -ForegroundColor Green
+    Write-Host "Alle Tests bestanden! System ist bereit fuer Produktion." -ForegroundColor Green
 } else {
-    Write-Host "⚠️  Einige Tests sind fehlgeschlagen. Bitte korrigieren vor Go-Live." -ForegroundColor Yellow
+    Write-Host "Einige Tests sind fehlgeschlagen. Bitte korrigieren vor Go-Live." -ForegroundColor Yellow
 }
 Write-Host ""
 
-pause
+Read-Host "Druecke Enter zum Beenden"
