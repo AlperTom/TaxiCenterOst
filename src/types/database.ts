@@ -1,0 +1,637 @@
+/**
+ * SUPABASE DATABASE TYPES
+ * Typdefinitionen für die Datenbank-Tabellen
+ */
+
+export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
+
+export type Database = {
+  public: {
+    Tables: {
+      tenants: {
+        Row: {
+          id: string;
+          slug: string;
+          name: string;
+          legal_name: string | null;
+          phone: string | null;
+          email: string | null;
+          website: string | null;
+          street: string | null;
+          zip_code: string | null;
+          city: string | null;
+          vat_id: string | null;
+          tax_number: string | null;
+          bank_name: string | null;
+          iban: string | null;
+          bic: string | null;
+          logo_light_url: string | null;
+          logo_dark_url: string | null;
+          favicon_url: string | null;
+          config: Json | null;
+          is_active: boolean;
+          is_verified: boolean;
+          pricing_config: Json | null;
+          telegram_group_id: number | null;
+          brokerage_fee_percent: number;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          slug: string;
+          name: string;
+          legal_name?: string | null;
+          phone?: string | null;
+          email?: string | null;
+          website?: string | null;
+          street?: string | null;
+          zip_code?: string | null;
+          city?: string | null;
+          vat_id?: string | null;
+          tax_number?: string | null;
+          bank_name?: string | null;
+          iban?: string | null;
+          bic?: string | null;
+          logo_light_url?: string | null;
+          logo_dark_url?: string | null;
+          favicon_url?: string | null;
+          config?: Json | null;
+          is_active?: boolean;
+          is_verified?: boolean;
+          pricing_config?: Json | null;
+          telegram_group_id?: number | null;
+          brokerage_fee_percent?: number;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          slug?: string;
+          name?: string;
+          legal_name?: string | null;
+          phone?: string | null;
+          email?: string | null;
+          website?: string | null;
+          street?: string | null;
+          zip_code?: string | null;
+          city?: string | null;
+          vat_id?: string | null;
+          tax_number?: string | null;
+          bank_name?: string | null;
+          iban?: string | null;
+          bic?: string | null;
+          logo_light_url?: string | null;
+          logo_dark_url?: string | null;
+          favicon_url?: string | null;
+          config?: Json | null;
+          is_active?: boolean;
+          is_verified?: boolean;
+          pricing_config?: Json | null;
+          telegram_group_id?: number | null;
+          brokerage_fee_percent?: number;
+          created_at?: string;
+          updated_at?: string;
+        };
+      };
+      drivers: {
+        Row: {
+          id: string;
+          tenant_id: string;
+          first_name: string;
+          last_name: string;
+          phone: string | null;
+          email: string | null;
+          license_number: string | null;
+          vehicle_plate: string | null;
+          vehicle_type: string;
+          telegram_user_id: number | null;
+          telegram_username: string | null;
+          telegram_chat_id: number | null;
+          telegram_verified_at: string | null;
+          is_active: boolean;
+          is_available: boolean;
+          last_location: unknown | null;
+          last_location_at: string | null;
+          current_balance: number;
+          total_earnings: number;
+          total_brokerage_fees: number;
+          bank_account_holder: string | null;
+          bank_iban: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          tenant_id: string;
+          first_name: string;
+          last_name: string;
+          phone?: string | null;
+          email?: string | null;
+          license_number?: string | null;
+          vehicle_plate?: string | null;
+          vehicle_type?: string;
+          telegram_user_id?: number | null;
+          telegram_username?: string | null;
+          telegram_chat_id?: number | null;
+          telegram_verified_at?: string | null;
+          is_active?: boolean;
+          is_available?: boolean;
+          last_location?: unknown | null;
+          last_location_at?: string | null;
+          current_balance?: number;
+          total_earnings?: number;
+          total_brokerage_fees?: number;
+          bank_account_holder?: string | null;
+          bank_iban?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          tenant_id?: string;
+          first_name?: string;
+          last_name?: string;
+          phone?: string | null;
+          email?: string | null;
+          license_number?: string | null;
+          vehicle_plate?: string | null;
+          vehicle_type?: string;
+          telegram_user_id?: number | null;
+          telegram_username?: string | null;
+          telegram_chat_id?: number | null;
+          telegram_verified_at?: string | null;
+          is_active?: boolean;
+          is_available?: boolean;
+          last_location?: unknown | null;
+          last_location_at?: string | null;
+          current_balance?: number;
+          total_earnings?: number;
+          total_brokerage_fees?: number;
+          bank_account_holder?: string | null;
+          bank_iban?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+      };
+      bookings: {
+        Row: {
+          id: string;
+          tenant_id: string;
+          booking_number: string;
+          status: string;
+          pickup_datetime: string;
+          requested_at: string | null;
+          customer_name: string | null;
+          customer_phone: string | null;
+          customer_email: string | null;
+          pickup_address: string;
+          pickup_lat: number | null;
+          pickup_lng: number | null;
+          pickup_district: string | null;
+          destination_address: string | null;
+          destination_lat: number | null;
+          destination_lng: number | null;
+          vehicle_type: string;
+          passenger_count: number;
+          has_bicycle: boolean;
+          has_luggage: boolean;
+          distance_km: number | null;
+          estimated_duration_min: number | null;
+          price_base_fare: number;
+          price_distance_fare: number;
+          price_waiting_fare: number;
+          price_surcharges: number;
+          price_fixed_fare: number | null;
+          price_total: number;
+          fixed_route_type: string | null;
+          payment_method: string;
+          needs_invoice: boolean;
+          invoice_company: string | null;
+          invoice_vat_id: string | null;
+          invoice_address: string | null;
+          assigned_driver_id: string | null;
+          assigned_at: string | null;
+          assigned_by: string | null;
+          assignment_type: string | null;
+          telegram_message_id: number | null;
+          telegram_claimed_at: string | null;
+          telegram_claimed_by_driver_id: string | null;
+          customer_notes: string | null;
+          internal_notes: string | null;
+          brokerage_fee_amount: number;
+          brokerage_fee_paid: boolean;
+          brokerage_fee_paid_at: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          tenant_id: string;
+          booking_number?: string;
+          status?: string;
+          pickup_datetime: string;
+          requested_at?: string | null;
+          customer_name?: string | null;
+          customer_phone?: string | null;
+          customer_email?: string | null;
+          pickup_address: string;
+          pickup_lat?: number | null;
+          pickup_lng?: number | null;
+          pickup_district?: string | null;
+          destination_address?: string | null;
+          destination_lat?: number | null;
+          destination_lng?: number | null;
+          vehicle_type?: string;
+          passenger_count?: number;
+          has_bicycle?: boolean;
+          has_luggage?: boolean;
+          distance_km?: number | null;
+          estimated_duration_min?: number | null;
+          price_base_fare?: number;
+          price_distance_fare?: number;
+          price_waiting_fare?: number;
+          price_surcharges?: number;
+          price_fixed_fare?: number | null;
+          price_total: number;
+          fixed_route_type?: string | null;
+          payment_method?: string;
+          needs_invoice?: boolean;
+          invoice_company?: string | null;
+          invoice_vat_id?: string | null;
+          invoice_address?: string | null;
+          assigned_driver_id?: string | null;
+          assigned_at?: string | null;
+          assigned_by?: string | null;
+          assignment_type?: string | null;
+          telegram_message_id?: number | null;
+          telegram_claimed_at?: string | null;
+          telegram_claimed_by_driver_id?: string | null;
+          customer_notes?: string | null;
+          internal_notes?: string | null;
+          brokerage_fee_amount?: number;
+          brokerage_fee_paid?: boolean;
+          brokerage_fee_paid_at?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          tenant_id?: string;
+          booking_number?: string;
+          status?: string;
+          pickup_datetime?: string;
+          requested_at?: string | null;
+          customer_name?: string | null;
+          customer_phone?: string | null;
+          customer_email?: string | null;
+          pickup_address?: string;
+          pickup_lat?: number | null;
+          pickup_lng?: number | null;
+          pickup_district?: string | null;
+          destination_address?: string | null;
+          destination_lat?: number | null;
+          destination_lng?: number | null;
+          vehicle_type?: string;
+          passenger_count?: number;
+          has_bicycle?: boolean;
+          has_luggage?: boolean;
+          distance_km?: number | null;
+          estimated_duration_min?: number | null;
+          price_base_fare?: number;
+          price_distance_fare?: number;
+          price_waiting_fare?: number;
+          price_surcharges?: number;
+          price_fixed_fare?: number | null;
+          price_total?: number;
+          fixed_route_type?: string | null;
+          payment_method?: string;
+          needs_invoice?: boolean;
+          invoice_company?: string | null;
+          invoice_vat_id?: string | null;
+          invoice_address?: string | null;
+          assigned_driver_id?: string | null;
+          assigned_at?: string | null;
+          assigned_by?: string | null;
+          assignment_type?: string | null;
+          telegram_message_id?: number | null;
+          telegram_claimed_at?: string | null;
+          telegram_claimed_by_driver_id?: string | null;
+          customer_notes?: string | null;
+          internal_notes?: string | null;
+          brokerage_fee_amount?: number;
+          brokerage_fee_paid?: boolean;
+          brokerage_fee_paid_at?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+      };
+      audit_logs: {
+        Row: {
+          id: string;
+          tenant_id: string | null;
+          actor_type: string;
+          actor_id: string | null;
+          actor_name: string | null;
+          action: string;
+          entity_type: string;
+          entity_id: string;
+          old_values: Json | null;
+          new_values: Json | null;
+          metadata: Json | null;
+          ip_address: unknown | null;
+          user_agent: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          tenant_id?: string | null;
+          actor_type: string;
+          actor_id?: string | null;
+          actor_name?: string | null;
+          action: string;
+          entity_type: string;
+          entity_id: string;
+          old_values?: Json | null;
+          new_values?: Json | null;
+          metadata?: Json | null;
+          ip_address?: unknown | null;
+          user_agent?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          tenant_id?: string | null;
+          actor_type?: string;
+          actor_id?: string | null;
+          actor_name?: string | null;
+          action?: string;
+          entity_type?: string;
+          entity_id?: string;
+          old_values?: Json | null;
+          new_values?: Json | null;
+          metadata?: Json | null;
+          ip_address?: unknown | null;
+          user_agent?: string | null;
+          created_at?: string;
+        };
+      };
+      brokerage_fees: {
+        Row: {
+          id: string;
+          tenant_id: string;
+          booking_id: string;
+          driver_id: string;
+          fee_amount: number;
+          fee_percent: number;
+          booking_total: number;
+          is_paid: boolean;
+          paid_at: string | null;
+          paid_by: string | null;
+          billing_period: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          tenant_id: string;
+          booking_id: string;
+          driver_id: string;
+          fee_amount: number;
+          fee_percent: number;
+          booking_total: number;
+          is_paid?: boolean;
+          paid_at?: string | null;
+          paid_by?: string | null;
+          billing_period?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          tenant_id?: string;
+          booking_id?: string;
+          driver_id?: string;
+          fee_amount?: number;
+          fee_percent?: number;
+          booking_total?: number;
+          is_paid?: boolean;
+          paid_at?: string | null;
+          paid_by?: string | null;
+          billing_period?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+      };
+      admin_users: {
+        Row: {
+          id: string;
+          tenant_id: string;
+          email: string;
+          password_hash: string;
+          first_name: string | null;
+          last_name: string | null;
+          role: string;
+          permissions: Json | null;
+          is_active: boolean;
+          last_login_at: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          tenant_id: string;
+          email: string;
+          password_hash: string;
+          first_name?: string | null;
+          last_name?: string | null;
+          role?: string;
+          permissions?: Json | null;
+          is_active?: boolean;
+          last_login_at?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          tenant_id?: string;
+          email?: string;
+          password_hash?: string;
+          first_name?: string | null;
+          last_name?: string | null;
+          role?: string;
+          permissions?: Json | null;
+          is_active?: boolean;
+          last_login_at?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+      };
+    };
+    Views: {
+      driver_brokerage_debts: {
+        Row: {
+          driver_id: string | null;
+          tenant_id: string | null;
+          first_name: string | null;
+          last_name: string | null;
+          total_fees: number | null;
+          paid_fees: number | null;
+          outstanding_fees: number | null;
+          unpaid_bookings: number | null;
+        };
+      };
+      booking_overview: {
+        Row: {
+          id: string | null;
+          tenant_id: string | null;
+          booking_number: string | null;
+          status: string | null;
+          pickup_datetime: string | null;
+          requested_at: string | null;
+          customer_name: string | null;
+          customer_phone: string | null;
+          customer_email: string | null;
+          pickup_address: string | null;
+          pickup_lat: number | null;
+          pickup_lng: number | null;
+          pickup_district: string | null;
+          destination_address: string | null;
+          destination_lat: number | null;
+          destination_lng: number | null;
+          vehicle_type: string | null;
+          passenger_count: number | null;
+          has_bicycle: boolean | null;
+          has_luggage: boolean | null;
+          distance_km: number | null;
+          estimated_duration_min: number | null;
+          price_base_fare: number | null;
+          price_distance_fare: number | null;
+          price_waiting_fare: number | null;
+          price_surcharges: number | null;
+          price_fixed_fare: number | null;
+          price_total: number | null;
+          fixed_route_type: string | null;
+          payment_method: string | null;
+          needs_invoice: boolean | null;
+          invoice_company: string | null;
+          invoice_vat_id: string | null;
+          invoice_address: string | null;
+          assigned_driver_id: string | null;
+          assigned_at: string | null;
+          assigned_by: string | null;
+          assignment_type: string | null;
+          telegram_message_id: number | null;
+          telegram_claimed_at: string | null;
+          telegram_claimed_by_driver_id: string | null;
+          customer_notes: string | null;
+          internal_notes: string | null;
+          brokerage_fee_amount: number | null;
+          brokerage_fee_paid: boolean | null;
+          brokerage_fee_paid_at: string | null;
+          created_at: string | null;
+          updated_at: string | null;
+          driver_first_name: string | null;
+          driver_last_name: string | null;
+          driver_phone: string | null;
+          booking_state: string | null;
+        };
+      };
+    };
+    Functions: {
+      claim_booking: {
+        Args: {
+          p_booking_id: string;
+          p_driver_id: string;
+        };
+        Returns: boolean;
+      };
+      assign_booking_manual: {
+        Args: {
+          p_booking_id: string;
+          p_driver_id: string;
+          p_assigned_by: string;
+        };
+        Returns: boolean;
+      };
+      broadcast_to_telegram: {
+        Args: {
+          p_booking_id: string;
+        };
+        Returns: boolean;
+      };
+      mark_brokerage_fee_paid: {
+        Args: {
+          p_driver_id: string;
+          p_paid_by: string;
+        };
+        Returns: {
+          total_fees: number;
+          affected_bookings: number;
+        }[];
+      };
+      get_daily_stats: {
+        Args: {
+          p_tenant_id: string;
+          p_date?: string;
+        };
+        Returns: {
+          total_bookings: number;
+          completed_bookings: number;
+          total_revenue: number;
+          telegram_claimed_bookings: number;
+          manual_assigned_bookings: number;
+          total_brokerage_fees: number;
+        }[];
+      };
+      get_driver_stats: {
+        Args: {
+          p_driver_id: string;
+          p_from_date: string;
+          p_to_date: string;
+        };
+        Returns: {
+          total_bookings: number;
+          completed_bookings: number;
+          total_earnings: number;
+          total_brokerage_fees: number;
+        }[];
+      };
+      calculate_munich_price: {
+        Args: {
+          p_distance_km: number;
+          p_passenger_count?: number;
+          p_has_bicycle?: boolean;
+          p_pickup_lat?: number;
+          p_pickup_lng?: number;
+          p_dest_lat?: number;
+          p_dest_lng?: number;
+        };
+        Returns: {
+          base_fare: number;
+          distance_fare: number;
+          surcharges: number;
+          fixed_price: number;
+          total: number;
+          is_fixed_price: boolean;
+        }[];
+      };
+      set_tenant_context: {
+        Args: {
+          tenant_id: string;
+        };
+        Returns: void;
+      };
+      set_actor_context: {
+        Args: {
+          actor_type: string;
+          actor_id: string;
+        };
+        Returns: void;
+      };
+    };
+    Enums: {
+      booking_status: 'pending' | 'telegram_broadcast' | 'claimed' | 'assigned_manual' | 'confirmed' | 'in_progress' | 'completed' | 'cancelled' | 'no_show';
+    };
+  };
+};
