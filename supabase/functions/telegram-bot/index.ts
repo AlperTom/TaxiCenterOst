@@ -16,14 +16,14 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.39.0';
 
 interface Config {
   supabaseUrl: string;
-  supabaseServiceKey: string;
+  supabaseKey: string;
   telegramBotToken: string;
 }
 
 function getConfig(): Config {
   return {
     supabaseUrl: Deno.env.get('SUPABASE_URL') || '',
-    supabaseServiceKey: Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || '',
+    supabaseKey: Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || '',
     telegramBotToken: Deno.env.get('TELEGRAM_BOT_TOKEN') || '',
   };
 }
@@ -530,7 +530,7 @@ serve(async (req) => {
       throw new Error('TELEGRAM_BOT_TOKEN not configured');
     }
 
-    const supabase = createClient(config.supabaseUrl, config.supabaseServiceKey);
+    const supabase = createClient(config.supabaseUrl, config.supabaseKey);
 
     const update: TelegramUpdate = await req.json();
     console.log('Received update:', JSON.stringify(update, null, 2));
